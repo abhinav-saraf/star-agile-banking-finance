@@ -1,10 +1,10 @@
 variable "aws_region" {
-  default = "ap-south-1"
+  default = "us-east-1"
 }
 
 variable "ami_id" {
-  description = "Ubuntu 22.04 AMI"
-  default     = "ami-0f5ee92e2d63afc18"
+  description = "Ubuntu Server 24.04 LTS (HVM)"
+  default     = "ami-020cba7c55df1f615"
 }
 
 variable "instance_type" {
@@ -13,7 +13,7 @@ variable "instance_type" {
 
 variable "key_name" {
   description = "Your AWS EC2 Key Pair name"
-  default     = "your-key-name"
+  default     = "kpu1"
 }
 
 variable "private_key_path" {
