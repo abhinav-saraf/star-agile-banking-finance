@@ -34,7 +34,7 @@
         enabled: yes
 
     - name: Pull app image from Docker Hub
-      shell: docker pull your-dockerhub-username/financeme-app:latest
+      shell: docker pull sarafabhinav1997/financeme-app:latest
 
     - name: Stop existing container if running
       shell: docker stop financeme || true && docker rm financeme || true
