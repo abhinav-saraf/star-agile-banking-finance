@@ -18,5 +18,5 @@ variable "key_name" {
 
 variable "private_key_path" {
   description = "Path to your .pem key file"
-  default     = "~/home/ubuntu/.ssh/id_rsa"
+  default     = "/home/ubuntu/.ssh/id_rsa"
 }
