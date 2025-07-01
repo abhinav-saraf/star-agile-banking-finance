@@ -37,9 +37,11 @@ pipeline {
 
         stage('Provision Test Infra') {
             steps {
-                dir('terraform/test') {
-                    sh 'terraform init'
-                    sh 'terraform apply -auto-approve'
+                withCredentials([sshUserPrivateKey(credentialsId: 'aws_ssh_key', keyFileVariable: 'KEY_FILE', usernameVariable: 'id_rsa')]) {
+                    dir('terraform/test') {
+                        sh 'terraform init'
+                        sh 'terraform apply -auto-approve -var="key_path=$KEY_FILE"'
+                    }
                 }
             }
         }
@@ -58,9 +60,11 @@ pipeline {
 
         stage('Provision & Deploy to Prod') {
             steps {
-                dir('terraform/prod') {
-                    sh 'terraform init'
-                    sh 'terraform apply -auto-approve'
+                withCredentials([sshUserPrivateKey(credentialsId: 'aws_ssh_key', keyFileVariable: 'KEY_FILE', usernameVariable: 'id_rsa')]) {
+                    dir('terraform/prod') {
+                        sh 'terraform init'
+                        sh 'terraform apply -auto-approve -var="key_path=$KEY_FILE"'
+                    }
                 }
                 sh 'ansible-playbook -i ansible/inventory/prod ansible/playbooks/deploy.yml'
             }
