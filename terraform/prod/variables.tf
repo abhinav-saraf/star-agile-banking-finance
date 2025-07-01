@@ -13,10 +13,10 @@ variable "instance_type" {
 
 variable "key_name" {
   description = "Your AWS EC2 Key Pair name"
-  default     = "kpu1"
+  default     = "id_rsa"
 }
 
 variable "private_key_path" {
   description = "Path to your .pem key file"
-  default     = "~/.ssh/your-key.pem"
+  default     = "/home/ubuntu/.ssh/id_rsa"
 }
