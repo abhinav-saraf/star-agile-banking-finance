@@ -40,4 +40,4 @@
       shell: docker stop financeme || true && docker rm financeme || true
 
     - name: Run container
-      shell: docker run -d -p 8081:8081 --name: financeme sarafabhinav1997/financeme-app:latest
+      shell: docker run -d -p 8084:8081 --name: financeme sarafabhinav1997/financeme-app:latest
