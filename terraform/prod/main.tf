@@ -12,7 +12,7 @@ resource "aws_instance" "app_server" {
   }
 
   provisioner "local-exec" {
-    command = "echo ${self.public_ip} > ../asible/inventory/test"
+    command = "echo ${self.public_ip} > ../asible/inventory/prod"
   }
 
   connection {
