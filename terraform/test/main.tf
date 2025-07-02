@@ -11,7 +11,7 @@ resource "aws_instance" "app_server" {
     Name = "FinanceMe-Test-Server"
   }
   provisioner "local-exec" {
-    command = "echo ${self.public_ip} > ansible/inventory/test"
+    command = "echo ${self.public_ip} > ../../ansible/inventory/test"
   }
   connection {
     type = "ssh"
