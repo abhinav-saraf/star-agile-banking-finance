@@ -1,3 +1,4 @@
+
 resource "aws_instance" "app_server" {
   ami                         = "ami-020cba7c55df1f615"
   instance_type               = "t2.micro"
@@ -9,10 +10,7 @@ resource "aws_instance" "app_server" {
   }
 
   provisioner "local-exec" {
-    command = <<EOT
-echo "[prod]
-${self.public_ip} ansible_user=ubuntu ansible_ssh_private_key_file=/var/lib/jenkins/.ssh/id_rsa" > /var/lib/jenkins/workspace/FinanceMe/ansible/inventory/prod
-EOT
+    command = "echo '[prod]\n${self.public_ip} ansible_user=ubuntu ansible_ssh_private_key_file=/var/lib/jenkins/.ssh/id_rsa' > /var/lib/jenkins/workspace/FinanceMe/ansible/inventory/prod"
   }
 
   connection {
