@@ -8,10 +8,7 @@ resource "aws_instance" "app_server" {
   }
 
   provisioner "local-exec" {
-    command = <<EOT
-  echo "[test]
-  ${self.public_ip} ansible_user=ubuntu ansible_ssh_private_key_file=/var/lib/jenkins/.ssh/id_rsa" > /var/lib/jenkins/workspace/FinanceMe/ansible/inventory/test
-  EOT
+    command = "echo '[test]\n${self.public_ip} ansible_user=ubuntu ansible_ssh_private_key_file=/var/lib/jenkins/.ssh/id_rsa' > /var/lib/jenkins/workspace/FinanceMe/ansible/inventory/test"
   }
 
   connection {
