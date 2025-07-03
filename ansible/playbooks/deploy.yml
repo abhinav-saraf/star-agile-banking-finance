@@ -1,5 +1,5 @@
 - name: Configure and deploy FinanceMe app
-  hosts: all
+  hosts: test
   become: yes
   tasks:
     - name: Wait for SSH to become available
