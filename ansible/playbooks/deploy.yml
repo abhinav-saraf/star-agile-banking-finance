@@ -1,46 +1,33 @@
 - name: Configure and deploy FinanceMe app
-  hosts: test
-  become: true
+  hosts: all
+  become: yes
   tasks:
+    - name: Wait for SSH to become available
+      wait_for:
+        port: 22
+        timeout: 120
+        state: started
+        
     - name: Update apt
       apt:
         update_cache: yes
 
-    - name: Install dependencies
-      apt:
-        name:
-          - apt-transport-https
-          - ca-certificates
-          - curl
-          - software-properties-common
-        state: present
-
-    - name: Add Docker GPG key
-      apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
-        state: present
-
-    - name: Add Docker repository
-      apt_repository:
-        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
-        state: present
-
     - name: Install Docker
       apt:
-        name: docker.io
+        name: ['docker.io']
         state: present
-        update_cache: yes
 
     - name: Start Docker
-      service:
+      systemd:
         name: docker
+        enabled: yes
         state: started
-        enabled: true
 
     - name: Pull Docker Image
       shell: docker pull sarafabhinav1997/financeme-app:latest
 
+    - name: Stop existing container if running
+      shell: docker stop financeme || true && docker rm financeme || true
+
     - name: Run container
       shell: docker run -d -p 8084:8081 --name financeme sarafabhinav1997/financeme-app:latest
-      args:
-        warn: false
