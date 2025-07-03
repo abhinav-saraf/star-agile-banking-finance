@@ -23,6 +23,6 @@ resource "null_resource" "generate_inventory" {
   depends_on = [aws_instance.app_server]
 
   provisioner "local-exec" {
-    command = "echo '[test]\n${aws_instance.app_server.public_ip} ansible_user=ubuntu ansible_ssh_private_key_file=/var/lib/jenkins/.ssh/id_rsa' > /var/lib/jenkins/workspace/FinanceMe/ansible/inventory/test"
+    command = "bash -c 'echo \"[test]\n${aws_instance.app_server.public_ip} ansible_user=ubuntu ansible_ssh_private_key_file=/var/lib/jenkins/.ssh/id_rsa\" > /var/lib/jenkins/workspace/FinanceMe/ansible/inventory/test'"
   }
 }
