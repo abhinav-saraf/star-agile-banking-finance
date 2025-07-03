@@ -1,6 +1,6 @@
 - name: Configure and deploy FinanceMe app
   hosts: test
-  become: yes
+  become: true
   tasks:
     - name: Wait for SSH to become available
       wait_for:
@@ -30,7 +30,7 @@
     - name: Start Docker
       systemd:
         name: docker
-        enabled: yes
+        enabled: true
         state: started
 
     - name: Pull Docker Image
