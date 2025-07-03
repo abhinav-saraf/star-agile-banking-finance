@@ -11,15 +11,15 @@ resource "aws_instance" "app_server" {
     Name = "FinanceMe-Test-Server"
   }
 
-provisioner "local-exec" {
-  command = "echo '[test]\n${self.public_ip} ansible_user=ubuntu ansible_ssh_private_key_file=/var/lib/jenkins/.ssh/id_rsa' > /var/lib/jenkins/workspace/FinanceMe/ansible/inventory/test"
+  provisioner "local-exec" {
+    command = "echo '[test]\n${self.public_ip} ansible_user=ubuntu ansible_ssh_private_key_file=/var/lib/jenkins/.ssh/id_rsa' > /var/lib/jenkins/workspace/FinanceMe/ansible/inventory/test"
   }
 }
 
-connection {
-  type        = "ssh"
-  user        = "ubuntu"
-  private_key = file("/var/lib/jenkins/.ssh/id_rsa")
-  host        = self.public_ip
+  connection {
+    type        = "ssh"
+    user        = "ubuntu"
+    private_key = file("/var/lib/jenkins/.ssh/id_rsa")
+    host        = self.public_ip
   }
 }  
