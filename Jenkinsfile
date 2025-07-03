@@ -46,7 +46,6 @@ pipeline {
 
         stage('Configure Test Server') {
             steps {
-                sh 'sleep 60'
                 sh 'ansible-playbook -i ansible/inventory/test ansible/playbooks/deploy.yml'
             }
         }
