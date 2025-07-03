@@ -1,6 +1,5 @@
----
 - name: Configure and deploy FinanceMe app
-  hosts: All
+  hosts: test
   become: yes
   tasks:
     - name: Update apt
