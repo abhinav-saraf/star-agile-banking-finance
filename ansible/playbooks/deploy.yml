@@ -7,6 +7,16 @@
         port: 22
         timeout: 120
         state: started
+      register: ssh_wait
+      until: ssh_wait is success
+      retries: 5
+      delay: 10
+
+    - name: Add user to docker group
+      user:
+        name: ubuntu
+        groups: docker
+        append: yes
         
     - name: Update apt
       apt:
