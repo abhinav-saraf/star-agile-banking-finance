@@ -1,1 +1,2 @@
-<PROD_PUBLIC_IP>
+[prod]
+<PROD_PUBLIC_IP> ansible_user=ubuntu ansible_ssh_private_key_file=/var/lib/jenkins/.ssh/id_rsa
