@@ -11,7 +11,7 @@ resource "aws_instance" "app_server" {
     Name = "FinanceMe-Test-Server"
   }
   provisioner "local-exec" {
-    command = "echo ${aws_instance.app_server.public_ip} > /var/lib/jenkins/workspace/FinanceMe/ansible/inventory/test"
+    command = "echo '[test]\n${aws_instance.app_server.public_ip} ansible_user=ubuntu ansible_ssh_private_key_file=/var/lib/jenkins/.ssh/id_rsa' > /var/lib/jenkins/workspace/FinanceMe/ansible/inventory/test"
   }
   connection {
     type = "ssh"
