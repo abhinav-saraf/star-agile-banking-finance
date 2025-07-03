@@ -27,7 +27,7 @@
       shell: docker pull sarafabhinav1997/financeme-app:latest
 
     - name: Stop existing container if running
-      shell: docker stop financeme || true && docker rm financeme || true
+      shell: docker stop financeme || true && docker rm -f financeme || true
 
     - name: Run container
       shell: docker run -d -p 8084:8081 --name financeme sarafabhinav1997/financeme-app:latest
