@@ -9,6 +9,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
+                cleanWs()
                 git 'https://github.com/abhinav-saraf/star-agile-banking-finance.git'
             }
         }
