@@ -1,11 +1,11 @@
 provider "aws" {
-  region = var.aws_region
+  region = "us-east-1"
 }
 
 resource "aws_instance" "app_server" {
-  ami = var.ami_id
-  instance_type = var.instance_type
-  key_name = var.key_name
+  ami = "ami-020cba7c55df1f615"
+  instance_type = "t2.micro"
+  key_name = "id_rsa"
   associate_public_ip_address = true
   tags = {
     Name = "FinanceMe-Test-Server"
@@ -16,7 +16,7 @@ resource "aws_instance" "app_server" {
   connection {
     type = "ssh"
     user = "ubuntu"
-    private_key = file(var.private_key_path)
+    private_key = file("/var/lib/jenkins/.ssh/id_rsa")
     host  = self.public_ip
   }
 }
