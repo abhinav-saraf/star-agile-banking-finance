@@ -1,4 +1,12 @@
 ---
+- name: Wait for SSH to come up
+  hosts: test
+  tasks:
+    - name: Wait for port 22 to become available
+      wait_for:
+        port: 22
+        timeout: 60
+        
 - name: Configure and deploy FinanceMe app
   hosts: all
   become: yes
