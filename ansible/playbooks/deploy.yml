@@ -1,6 +1,6 @@
 - name: Configure and deploy FinanceMe app
   hosts: All
-  become: yes
+  become: true
   tasks:
     - name: Update apt
       apt:
@@ -8,7 +8,11 @@
 
     - name: Install dependencies
       apt:
-        name: ['apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common']
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
         state: present
 
     - name: Add Docker GPG key
@@ -21,25 +25,22 @@
         repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
         state: present
 
-    - name: Update apt again
-      apt:
-        update_cache: yes
-
     - name: Install Docker
       apt:
-        name: docker-ce
+        name: docker.io
         state: present
+        update_cache: yes
 
     - name: Start Docker
       service:
         name: docker
         state: started
-        enabled: yes
+        enabled: true
 
     - name: Pull Docker Image
       shell: docker pull sarafabhinav1997/financeme-app:latest
 
     - name: Run container
-      shell: docker run -d -p 8084:8081 --name=financeme sarafabhinav1997/financeme-app:latest
+      shell: docker run -d -p 8084:8081 --name financeme sarafabhinav1997/financeme-app:latest
       args:
         warn: false
