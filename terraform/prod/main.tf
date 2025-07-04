@@ -9,9 +9,12 @@ resource "aws_instance" "app_server" {
     Name = "FinanceMe-Prod-Server"
   }
 
-  provisioner "local-exec" {
-    command = "echo ${self.public_ip} > /ansible/inventory/prod"
-  }
+ provisioner "local-exec" {
+  command = <<EOT
+    echo "[test]
+    ${self.public_ip} ansible_user=ubuntu ansible_ssh_private_key_file=/var/lib/jenkins/.ssh/id_rsa" > /var/lib/jenkins/workspace/FinanceMe/ansible/inventory/test
+  EOT
+}
 
   connection {
     type        = "ssh"
