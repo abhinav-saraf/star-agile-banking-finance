@@ -1,3 +1,7 @@
+provider "aws" {
+  region = "us-east-1"
+}
+
 resource "aws_instance" "app_server" {
   ami                         = "ami-020cba7c55df1f615"
   instance_type               = "t2.micro"
@@ -9,7 +13,7 @@ resource "aws_instance" "app_server" {
   }
 
   provisioner "local-exec" {
-    command = "echo ${self.public_ip} > /ansible/inventory/test"
+    command = "echo ${self.public_ip} > ../ansible/inventory/test"
   }
 
   connection {
