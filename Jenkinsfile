@@ -4,7 +4,6 @@ pipeline {
     environment {
         IMAGE_NAME = "financeme-app"
         DOCKERHUB_USER = "sarafabhinav1997"
-        ANSIBLE_HOST_KEY_CHECKING = 'False'
     }
 
     stages {
@@ -47,7 +46,7 @@ pipeline {
 
         stage('Configure Test Server') {
             steps {
-                sh 'ansible-playbook -i ansible/inventory/test ansible/playbooks/deploy.yml'
+                sh 'ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible/inventory/test ansible/playbooks/deploy.yml'
             }
         }
 
