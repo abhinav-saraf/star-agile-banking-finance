@@ -4,6 +4,8 @@ pipeline {
     environment {
         IMAGE_NAME = "financeme-app"
         DOCKERHUB_USER = "sarafabhinav1997"
+        TF_WORKSPACE = "test"
+        ANSIBLE_HOST_KEY_CHECKING = "False"
     }
 
     stages {
@@ -46,6 +48,8 @@ pipeline {
 
         stage('Configure Test Server') {
             steps {
+                sh 'echo "Waiting for SSH port to be available..."'
+                sh 'sleep 60'
                 sh 'ansible-playbook -i ansible/inventory/test ansible/playbooks/deploy.yml'
             }
         }
@@ -64,6 +68,15 @@ pipeline {
                 }
                 sh 'ansible-playbook -i ansible/inventory/prod ansible/playbooks/deploy.yml'
             }
+        }
+    }
+    
+    post {
+        failure {
+            echo 'Build failed!'
+        }
+        success {
+            echo 'Build succeeded!'
         }
     }
 }
