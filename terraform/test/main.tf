@@ -13,8 +13,8 @@ resource "aws_instance" "app_server" {
   }
 
   provisioner "local-exec" {
-    command = "echo ${self.public_ip} > /var/lib/jenkins/workspace/FinanceMe/ansible/inventory/test"
-  }
+  command = "echo ${aws_instance.app_server.public_ip} > /var/lib/jenkins/workspace/FinanceMe/ansible/inventory/test"
+}
 
   connection {
     type        = "ssh"
