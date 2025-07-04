@@ -4,7 +4,6 @@ pipeline {
     environment {
         IMAGE_NAME = "financeme-app"
         DOCKERHUB_USER = "sarafabhinav1997"
-        TF_WORKSPACE = "test"
         ANSIBLE_HOST_KEY_CHECKING = "False"
     }
 
@@ -66,6 +65,13 @@ pipeline {
                     sh 'terraform init'
                     sh 'terraform apply -auto-approve'
                 }
+            }
+        }
+        
+        stage('Configure Prod Server') {
+            steps {
+                sh 'echo "Waiting for SSH port to be available..."'
+                sh 'sleep 60'
                 sh 'ansible-playbook -i ansible/inventory/prod ansible/playbooks/deploy.yml'
             }
         }
