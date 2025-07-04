@@ -49,7 +49,7 @@ pipeline {
         stage('Configure Test Server') {
             steps {
                 sh 'echo "Waiting for SSH port to be available..."'
-                sh 'sleep 60'
+                sh 'sleep 30'
                 sh 'ansible-playbook -i ansible/inventory/test ansible/playbooks/deploy.yml'
             }
         }
@@ -72,7 +72,7 @@ pipeline {
         stage('Configure Prod Server') {
             steps {
                 sh 'echo "Waiting for SSH port to be available..."'
-                sh 'sleep 60'
+                sh 'sleep 30'
                 sh 'ansible-playbook -i ansible/inventory/prod ansible/playbooks/deploy.yml'
             }
         }
