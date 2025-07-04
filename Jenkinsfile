@@ -40,6 +40,12 @@ pipeline {
                 dir('terraform/test') {
                     sh 'terraform init'
                     sh 'terraform apply -auto-approve'
+                    sh '''
+                      export TEST_IP=$(terraform output -raw test_server_ip)
+                      echo "[test]" > ansible/inventory/test
+                      echo "$TEST_IP ansible_user=ubuntu ansible_ssh_private_key_file=/var/lib/jenkins/.ssh/id_rsa ansible_ssh_common_args='-o StrictHostKeyChecking=no'" >> ansible/inventory/test
+                      cat ansible/inventory/test
+                    '''
                 }
             }
         }
