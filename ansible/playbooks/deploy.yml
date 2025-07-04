@@ -26,7 +26,6 @@
     - name: Run container
       shell: docker run -d -p 8084:8081 --name financeme sarafabhinav1997/financeme-app:latest
 
----
 - name: Install Node Exporter
   hosts: all
   become: yes
