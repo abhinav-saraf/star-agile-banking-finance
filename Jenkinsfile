@@ -4,6 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME = "financeme-app"
         DOCKERHUB_USER = "sarafabhinav1997"
+        TF_WORKSPACE = "test"
         ANSIBLE_HOST_KEY_CHECKING = "False"
     }
 
