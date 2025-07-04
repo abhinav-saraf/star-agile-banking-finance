@@ -4,6 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME = "financeme-app"
         DOCKERHUB_USER = "sarafabhinav1997"
+        ANSIBLE_HOST_KEY_CHECKING = 'False'
     }
 
     stages {
@@ -44,13 +45,6 @@ pipeline {
             }
         }
 
-        stage('Wait for server to be ready') {
-            steps {
-                echo 'Waiting for 90 seconds for the instance to initialize...'
-                sh 'sleep 90'
-            }
-        }
-        
         stage('Configure Test Server') {
             steps {
                 sh 'ansible-playbook -i ansible/inventory/test ansible/playbooks/deploy.yml'
