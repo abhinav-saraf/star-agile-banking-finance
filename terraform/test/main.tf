@@ -19,3 +19,7 @@ resource "aws_instance" "app_server" {
     host        = self.public_ip
   }
 }
+
+output "test_instance_ip" {
+  value = aws_instance.app_server.public_ip
+}
