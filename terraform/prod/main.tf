@@ -10,10 +10,7 @@ resource "aws_instance" "app_server" {
   }
 
   provisioner "local-exec" {
-    command = <<EOT
-      echo "[prod]
-      ${self.public_ip} ansible_user=ubuntu ansible_ssh_private_key_file=/var/lib/jenkins/.ssh/id_rsa" > /var/lib/jenkins/workspace/FinanceMe/ansible/inventory/prod
-    EOT
+    command = "echo ${self.public_ip} > /ansible/inventory/prod"
   }
 
   connection {
@@ -22,4 +19,8 @@ resource "aws_instance" "app_server" {
     private_key = file("/var/lib/jenkins/.ssh/id_rsa")
     host        = self.public_ip
   }
+}
+
+output "prod_instance_ip" {
+  value = aws_instance.app_server.public_ip
 }
