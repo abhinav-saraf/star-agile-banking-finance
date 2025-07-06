@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         IMAGE_NAME = "financeme-app"
-        DOCKERHUB_USER = "sarafabhinav1997"
         TF_WORKSPACE = "test"
         ANSIBLE_HOST_KEY_CHECKING = "False"
     }
@@ -31,8 +30,8 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     sh 'echo $PASS | docker login -u $USER --password-stdin'
-                    sh 'docker tag $IMAGE_NAME $DOCKERHUB_USER/$IMAGE_NAME:latest'
-                    sh 'docker push $DOCKERHUB_USER/$IMAGE_NAME:latest'
+                    sh 'docker tag $IMAGE_NAME sarafabhinav1997/$IMAGE_NAME:latest'
+                    sh 'docker push sarafabhinav1997/$IMAGE_NAME:latest'
                 }
             }
         }
@@ -50,7 +49,7 @@ pipeline {
             steps {
                 sh 'echo "Waiting for SSH port to be available..."'
                 sh 'sleep 30'
-                sh 'ansible-playbook -i ansible/inventory/test ansible/playbooks/deploy.yml'
+                sh 'ansible-playbook -i ansible/test ansible/deploy.yml'
             }
         }
 
@@ -73,7 +72,7 @@ pipeline {
             steps {
                 sh 'echo "Waiting for SSH port to be available..."'
                 sh 'sleep 30'
-                sh 'ansible-playbook -i ansible/inventory/prod ansible/playbooks/deploy.yml'
+                sh 'ansible-playbook -i ansible/prod ansible/deploy.yml'
             }
         }
     }
