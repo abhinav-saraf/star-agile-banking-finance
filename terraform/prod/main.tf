@@ -12,7 +12,7 @@ resource "aws_instance" "app_server" {
  provisioner "local-exec" {
   command = <<EOT
     echo "[prod]
-    ${self.public_ip} ansible_user=ubuntu ansible_ssh_private_key_file=/var/lib/jenkins/.ssh/id_rsa ansible_ssh_common_args='-o StrictHostKeyChecking=no'" > /var/lib/jenkins/workspace/FinanceMe/ansible/inventory/prod
+    ${self.public_ip} ansible_user=ubuntu ansible_ssh_private_key_file=/var/lib/jenkins/.ssh/id_rsa ansible_ssh_common_args='-o StrictHostKeyChecking=no'" > /var/lib/jenkins/workspace/FinanceMe/ansible/prod
   EOT
 }
 
