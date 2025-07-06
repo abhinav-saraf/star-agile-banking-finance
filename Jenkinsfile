@@ -9,13 +9,13 @@ pipeline {
     }
 
     stages {
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
                 git 'https://github.com/abhinav-saraf/star-agile-banking-finance.git'
             }
         }
 
-        stage('Build with Maven') {
+        stage('Build') {
             steps {
                 sh 'mvn clean package'
             }
@@ -46,7 +46,7 @@ pipeline {
             }
         }
 
-        stage('Configure Test Server') {
+        stage('Deploy to Test') {
             steps {
                 sh 'echo "Waiting for SSH port to be available..."'
                 sh 'sleep 30'
@@ -60,7 +60,7 @@ pipeline {
             }
         }
 
-        stage('Provision & Deploy to Prod') {
+        stage('Provision Prod Infra') {
             steps {
                 dir('terraform/prod') {
                     sh 'terraform init'
@@ -69,7 +69,7 @@ pipeline {
             }
         }
         
-        stage('Configure Prod Server') {
+        stage('Deploy to Prod Server') {
             steps {
                 sh 'echo "Waiting for SSH port to be available..."'
                 sh 'sleep 30'
