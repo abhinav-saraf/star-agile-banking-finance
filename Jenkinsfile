@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "financeme-app"
         TF_WORKSPACE = "test"
         ANSIBLE_HOST_KEY_CHECKING = "False"
     }
@@ -22,7 +21,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $IMAGE_NAME .'
+                sh 'docker build -t financeme-app .'
             }
         }
 
@@ -30,8 +29,8 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     sh 'echo $PASS | docker login -u $USER --password-stdin'
-                    sh 'docker tag $IMAGE_NAME sarafabhinav1997/$IMAGE_NAME:latest'
-                    sh 'docker push sarafabhinav1997/$IMAGE_NAME:latest'
+                    sh 'docker tag financeme-app sarafabhinav1997/financeme-app:latest'
+                    sh 'docker push sarafabhinav1997/financeme-app:latest'
                 }
             }
         }
